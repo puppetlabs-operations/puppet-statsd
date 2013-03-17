@@ -8,15 +8,20 @@ class statsd(
   $percentthreshold = ['90'],
   $ensure           = 'present',
   $provider         = 'npm',
-  $config           = { }) 
-inherits statsd::params {
+  $node_module_dir  = '',
+  $config           = { }) {
+
+  class { 'statsd::params':
+    provider        => $provider,
+    node_module_dir => $node_module_dir,
+  }
 
   require nodejs
 
   package { 'statsd':
     ensure   => $ensure,
     provider => $provider,
-    notify  => Service['statsd'],
+    notify   => Service['statsd'],
   }
 
   $configfile  = '/etc/statsd/localConfig.js'
@@ -26,9 +31,9 @@ inherits statsd::params {
 
   file { '/etc/statsd':
     ensure => directory,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
   } ->
   file { $configfile:
     content => template('statsd/localConfig.js.erb'),
@@ -44,7 +49,7 @@ inherits statsd::params {
     mode    => '0755',
     notify  => Service['statsd'],
   }
-  file {  '/etc/default/statsd':
+  file { '/etc/default/statsd':
     content => template('statsd/statsd-defaults.erb'),
     owner   => 'root',
     group   => 'root',
