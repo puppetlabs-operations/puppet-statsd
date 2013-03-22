@@ -1,4 +1,4 @@
-class statsd::params($node_module_dir  = '') {
+class statsd::params($provider = 'npm', $node_module_dir  = '') {
   case $::osfamily {
     'RedHat': {
       $init_script = 'puppet:///modules/statsd/statsd-init-rhel'
@@ -23,7 +23,7 @@ class statsd::params($node_module_dir  = '') {
             fail('Unsupported provider')
           }
         }
-      } 
+      }
       else {
         $statsjs = "${node_module_dir}/statsd/stats.js"
       }
@@ -32,7 +32,4 @@ class statsd::params($node_module_dir  = '') {
       fail('Unsupported OS Family')
     }
   }
-  
-  
-  
 }
