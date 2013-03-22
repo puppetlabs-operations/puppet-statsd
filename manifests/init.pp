@@ -7,14 +7,8 @@ class statsd(
   $flushinterval    = '10000',
   $percentthreshold = ['90'],
   $ensure           = 'present',
-  $provider         = 'npm',
-  $node_module_dir  = '',
-  $config           = { }) {
-
-  class { 'statsd::params':
-    provider        => $provider,
-    node_module_dir => $node_module_dir,
-  }
+  $config           = { }
+) inherits statsd::params {
 
   require nodejs
 

@@ -1,4 +1,4 @@
-class statsd::params($provider, $node_module_dir  = '') {
+class statsd::params($provider = 'npm', $node_module_dir  = '') {
   case $::osfamily {
     'RedHat': {
       $init_script = 'puppet:///modules/statsd/statsd-init-rhel'
