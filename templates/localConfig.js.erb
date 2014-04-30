@@ -6,7 +6,7 @@
 , graphiteHost: "<%= @graphiteserver %>"
 , address: "<%= @address %>"
 , port: "<%= @listenport %>"
-, flushInterval: "<%= @flushinterval %>"
+, flushInterval: <%= @flushinterval %>
 , percentThreshold: [<%= @percentthreshold.join(', ') %>]
 <% @config.each do |k, v| -%>
 , <%= k %>: <%= v %>
