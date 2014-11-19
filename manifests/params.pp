@@ -9,7 +9,7 @@ class statsd::params {
   $ensure           = 'present'
   $provider         = 'npm'
   $config           = { }
-  $node_module_dir  = ''
+  $node_module_dir  = undef
   $node_manage      = true
   $node_version     = 'present'
 
