@@ -12,6 +12,7 @@ class statsd::params {
   $node_module_dir  = ''
   $node_manage      = true
   $node_version     = 'present'
+  $manage_service   = true
 
   case $::osfamily {
     'RedHat': {

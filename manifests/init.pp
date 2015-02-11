@@ -13,6 +13,7 @@ class statsd(
   $init_script      = $statsd::params::init_script,
   $node_manage      = $statsd::params::node_manage,
   $node_version     = $statsd::params::node_version,
+  $manage_service   = $statsd::params::manage_service,
 ) inherits statsd::params {
 
   if $node_manage == true {
@@ -70,10 +71,15 @@ class statsd(
   }
 
   service { 'statsd':
-    ensure    => running,
     enable    => true,
     hasstatus => true,
     pattern   => 'node .*stats.js',
     require   => File['/var/log/statsd'],
+  }
+
+  if $manage_service == true {
+    Service['statsd'] {
+      ensure  => running,
+    }
   }
 }
