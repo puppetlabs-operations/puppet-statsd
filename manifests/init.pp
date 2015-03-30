@@ -13,6 +13,7 @@ class statsd(
   $init_script      = $statsd::params::init_script,
   $node_manage      = $statsd::params::node_manage,
   $node_version     = $statsd::params::node_version,
+  $environment      = $statsd::params::environment,
 ) inherits statsd::params {
 
   if $node_manage == true {
