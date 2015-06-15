@@ -7,6 +7,7 @@ class statsd(
   $flushinterval    = $statsd::params::flushinterval,
   $percentthreshold = $statsd::params::percentthreshold,
   $ensure           = $statsd::params::ensure,
+  $service_ensure   = $statsd::params::service_ensure,
   $provider         = $statsd::params::provider,
   $config           = $statsd::params::config,
   $statsjs          = $statsd::params::statsjs,
@@ -17,6 +18,20 @@ class statsd(
 
   if $node_manage == true {
     class { '::nodejs': version => $node_version }
+  }
+
+  case $service_ensure {
+    'running': {
+      $service_enable = true
+      $file_ensure = 'present'
+    }
+    'stopped': {
+      $service_enable = false
+      $file_ensure = 'absent'
+    }
+    default: {
+      fail("ensure must be 'running' or 'stopped', not ${service_ensure}")
+    }
   }
 
   package { 'statsd':
@@ -42,6 +57,7 @@ class statsd(
     notify  => Service['statsd'],
   }
   file { '/etc/init.d/statsd':
+    ensure  => $file_ensure,
     source  => $init_script,
     owner   => 'root',
     group   => 'root',
@@ -49,6 +65,7 @@ class statsd(
     notify  => Service['statsd'],
   }
   file {  '/etc/default/statsd':
+    ensure  => $file_ensure,
     content => template('statsd/statsd-defaults.erb'),
     owner   => 'root',
     group   => 'root',
@@ -70,8 +87,8 @@ class statsd(
   }
 
   service { 'statsd':
-    ensure    => running,
-    enable    => true,
+    ensure    => $service_ensure,
+    enable    => $service_enable,
     hasstatus => true,
     pattern   => 'node .*stats.js',
     require   => File['/var/log/statsd'],
