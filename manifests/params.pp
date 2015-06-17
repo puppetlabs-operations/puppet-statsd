@@ -7,6 +7,7 @@ class statsd::params {
   $flushinterval    = '10000'
   $percentthreshold = ['90']
   $ensure           = 'present'
+  $service_ensure   = 'running'
   $provider         = 'npm'
   $config           = { }
   $node_module_dir  = ''
