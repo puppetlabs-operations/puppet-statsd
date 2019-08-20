@@ -2,10 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.4)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     facter (1.7.2)
     hiera (1.2.1)
       json_pure
     highline (1.6.19)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     json (1.8.0)
     json_pure (1.8.0)
     librarian (0.1.0)
@@ -15,10 +19,13 @@ GEM
       json
       librarian (>= 0.1.0)
     metaclass (0.0.1)
-    mime-types (1.23)
+    mime-types (3.2.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2019.0331)
     mini_portile (0.5.1)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
+    netrc (0.11.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     puppet (3.2.3)
@@ -38,8 +45,10 @@ GEM
       rspec (>= 2.9.0)
       rspec-puppet (>= 0.1.1)
     rake (10.1.0)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rgen (0.6.5)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
@@ -52,6 +61,9 @@ GEM
     rspec-puppet (0.1.6)
       rspec
     thor (0.18.1)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.6)
 
 PLATFORMS
   ruby
